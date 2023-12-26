@@ -18,6 +18,7 @@ function App() {
             </ModelPage>
           }
         />
+        <Route path="/Login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );

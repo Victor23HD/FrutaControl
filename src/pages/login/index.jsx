@@ -7,6 +7,7 @@ import MainImage from "../../images/background.png";
 import LoginImage from "../../images/login_image.jpg";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Cookies from "js-cookie";
 import axios from "axios";
 
 function Login() {
@@ -54,6 +55,8 @@ function Login() {
           )
           .then((response) => {
             if (response.status === 200) {
+                Cookies.set("Token",idToken);
+                Cookies.set("Email",email);
               navigate("/Dashboard");
             } else {
               console.log("Erro de credenciais");
