@@ -1,8 +1,26 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ModelPage from "./components/ModelPage/index";
+import Dashboard from "./pages/dashboard/index";
+import Login from "./pages/login";
+
 function App() {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <h1 className="text-3xl font-bold">FrutaControl</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {/*LoginRoute*/}
+        <Route path="/" element={<Login />} />
+        {/*DashboardRoute*/}
+        <Route
+          path="/Dashboard"
+          element={
+            <ModelPage>
+              <Dashboard />
+            </ModelPage>
+          }
+        />
+        <Route path="/Login" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
