@@ -1,8 +1,14 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/login";
+
 function App() {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <h1 className="text-3xl font-bold">FrutaControl</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {/*LoginRoute*/}
+        <Route path="/" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
