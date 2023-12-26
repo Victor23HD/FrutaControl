@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ModelPage from "./components/ModelPage/index";
 import Dashboard from "./pages/dashboard/index";
@@ -12,22 +11,16 @@ import Stock from "./pages/stock/index.jsx";
 import CustomerRegister from "./pages/customer/register/index.jsx"
 import CustomerList from "./pages/customer/list/index.jsx"
 import Sale from "./pages/sale/index.jsx";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ModelPage from "./components/ModelPage/index";
+import Dashboard from "./pages/dashboard/index";
+import Login from "./pages/login";
+
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-      {/*LoginRoute*/}
-      <Route path="/" element={<Login />} />
-        {/*DashboardRoute*/}
-        <Route
-          path="/Dashboard"
-          element={
-            <ModelPage>
-              <Dashboard />
-            </ModelPage>
-          }
-        />
         {/*UserRoute*/}
         <Route
           path="/User"
@@ -109,7 +102,6 @@ function App() {
             </ModelPage>
           }
         />
-        {/*LoginRoute*/}
         <Route path="/Login" element={<Login />} />
       </Routes>
     </BrowserRouter>
