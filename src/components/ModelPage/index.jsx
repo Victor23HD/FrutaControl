@@ -9,22 +9,26 @@ export default function ModelPage({ children }) {
 
   let navigate = useNavigate();
 
-  (async function () {
-    await axios
-      .get(
-        `https://kq6xsqxnoa.execute-api.us-east-1.amazonaws.com/dev/FrutaControl`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token": Cookies.get("Token"),
-          },
-        }
-      )
-      .then((res) => {
-        return null;
-      }).catch((error) => {
-        navigate("/Login");
-      });
+  const tokenValidation = async() => {
+    return await axios
+    .get(
+      `https://kq6xsqxnoa.execute-api.us-east-1.amazonaws.com/dev/FrutaControl`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": Cookies.get("Token"),
+        },
+      }
+    )
+    .then((res) => {
+      return null;
+    }).catch((error) => {
+      navigate("/Login");
+    });
+  }
+
+  (async () => {
+    await tokenValidation();
   })();
 
   return (

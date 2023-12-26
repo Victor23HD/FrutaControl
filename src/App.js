@@ -12,8 +12,6 @@ import CustomerRegister from "./pages/customer/register/index.jsx"
 import CustomerList from "./pages/customer/list/index.jsx"
 import Sale from "./pages/sale/index.jsx";
 
-
-
 function App() {
   return (
     <BrowserRouter>
