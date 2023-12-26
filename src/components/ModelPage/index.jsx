@@ -1,29 +1,17 @@
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "./navbar";
 import Sidebar from "./sidebar";
 
 // eslint-disable-next-line react/prop-types
 export default function ModelPage({ children }) {
-  let navigate = useNavigate();
+  const token = Cookies.get("jwt-authorization");
 
   (async function () {
-    await axios
-      .get(
-        `https://kq6xsqxnoa.execute-api.us-east-1.amazonaws.com/dev/FrutaControl`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token": Cookies.get("Token"),
-          },
-        }
-      )
-      .then((response) => {
-        return null;
-      }).catch((error) => {
-        navigate("/Login");
-      })
+    console.log(token);
+    await axios.get(`http://localhost:3000/users/${token}`).then((res) => {
+      console.log(res);
+    });
   })();
 
   return (
