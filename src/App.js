@@ -20,6 +20,15 @@ function App() {
       <Routes>
          {/*DafaultRoute*/}
          <Route path="/" element={<Login />} />
+          {/*DashboardRoute*/}
+        <Route
+          path="/Dashboard"
+          element={
+            <ModelPage>
+              <Dashboard />
+            </ModelPage>
+          }
+        />
         {/*UserRoute*/}
         <Route
           path="/User"
