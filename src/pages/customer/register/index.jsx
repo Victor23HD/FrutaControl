@@ -1,4 +1,4 @@
-import InputMask from "react-input-mask";
+import { motion } from "framer-motion";
 import { useState } from "react";
 
 export default function CustomerRegister() {
@@ -15,6 +15,17 @@ export default function CustomerRegister() {
   const [street, setStreet] = useState("");
   const [neighborhood, setNeighborhood] = useState("");
   const [complement, setComplement] = useState("");
+
+  const dropdown = {
+    hidden: { opacity: 0, height: 0 },
+    show: {
+      opacity: 1,
+      height: "auto",
+      transition: {
+        staggerChildren: 0.5,
+      },
+    },
+  };
 
   const sendForm = async (e) => {
     e.preventDefault();
@@ -62,7 +73,9 @@ export default function CustomerRegister() {
                       value={company}
                       onChange={(event) => setCompany(event.target.value)}
                     />
-                    <span
+                    <motion.span
+                    variants={dropdown}
+                    animate={company !== "" && company.length <= 6 ? "show" : "hidden"}
                       className={`${
                         company !== ""
                           ? "peer-valid:hidden"
@@ -70,7 +83,7 @@ export default function CustomerRegister() {
                       }  text-[12px] text-red-500 font-bold`}
                     >
                       - Empresa Inválida!
-                    </span>
+                    </motion.span>
                   </div>
 
                   {/* CONTATO */}
@@ -92,7 +105,9 @@ export default function CustomerRegister() {
                       value={contact}
                       onChange={(event) => setContact(event.target.value)}
                     />
-                    <span
+                    <motion.span
+                    variants={dropdown}
+                    animate={contact !== "" && contact.length < 6  ? "show" : "hidden"}
                       className={`${
                         contact !== ""
                           ? "peer-valid:hidden"
@@ -100,7 +115,7 @@ export default function CustomerRegister() {
                       }  text-[12px] text-red-500 font-bold`}
                     >
                       - Contato Inválido!
-                    </span>
+                    </motion.span>
                   </div>
 
                   {/* EMAIL */}
@@ -117,7 +132,9 @@ export default function CustomerRegister() {
                       value={email}
                       onChange={(event) => setEmail(event.target.value)}
                     />
-                    <span
+                    <motion.span
+                    variants={dropdown}
+                    animate={email !== "" && email.length < 13    ? "show" : "hidden"}
                       className={`${
                         email !== ""
                           ? "peer-valid:hidden"
@@ -125,7 +142,7 @@ export default function CustomerRegister() {
                       } text-[12px] text-red-500 font-bold`}
                     >
                       - E-mail Inválido!
-                    </span>
+                    </motion.span>
                   </div>
                   {/* TELEFONE */}
                   <label className="flex flex-row font-semibold items-center">
@@ -143,7 +160,9 @@ export default function CustomerRegister() {
                       value={telephone}
                       onChange={(event) => setTelephone(event.target.value)}
                     />
-                    <span
+                    <motion.span
+                    variants={dropdown}
+                    animate={telephone !== "" && telephone.length < 11    ? "show" : "hidden"}
                       className={`${
                         telephone !== ""
                           ? "peer-valid:hidden"
@@ -151,7 +170,7 @@ export default function CustomerRegister() {
                       } text-[12px] text-red-500 font-bold`}
                     >
                       - Telefone Inválido!
-                    </span>
+                    </motion.span>
                   </div>
                 </div>
                 {/* COL 02 */}
@@ -159,19 +178,22 @@ export default function CustomerRegister() {
                   {/* CATEGORIA */}
                   <label className="flex flex-row font-semibold items-center">
                     Categoria{" "}
-                    <div className="font-bold text-gray-400  pl-1"> * </div>{" "}
+                    <div className="font-bold text-gray-400 pl-1"> * </div>{" "}
                   </label>
                   <div className="flex flex-col h-8">
                     <select
                       className="peer border-b text-sm border-gray-600 outline-none "
                       value={category}
                       required
+                      maxLength={11}
                       onChange={(event) => setCategory(event.target.value)}
                     >
                       <option value="varejo">Varejo</option>
                       <option value="atacado">Atacado</option>
                     </select>
-                    <span
+                    <motion.span
+                    variants={dropdown}
+                    animate={category !== "" && category.length < 11    ? "show" : "hidden"}
                       className={`${
                         category !== ""
                           ? "peer-valid:hidden"
@@ -179,9 +201,9 @@ export default function CustomerRegister() {
                       } text-[12px] text-red-500 font-bold`}
                     >
                       - Categoria Inválida!
-                    </span>
+                    </motion.span>
                   </div>
-
+                  {/* STREET */}
                   <label className="flex flex-row font-semibold items-center ">
                     Rua<div className="font-bold text-gray-400  pl-1"> * </div>{" "}
                   </label>
@@ -195,7 +217,9 @@ export default function CustomerRegister() {
                       value={street}
                       onChange={(event) => setStreet(event.target.value)}
                     />
-                    <span
+                    <motion.span
+                     variants={dropdown}
+                     animate={street !== "" && street.length < 6 ? "show" : "hidden"}
                       className={`${
                         street !== ""
                           ? "peer-valid:hidden"
@@ -203,9 +227,9 @@ export default function CustomerRegister() {
                       } text-[12px] text-red-500 font-bold`}
                     >
                       - Rua Inválida!
-                    </span>
+                    </motion.span>
                   </div>
-
+                  {/* NEIGHBORHOOD */}
                   <label className="flex flex-row font-semibold items-center">
                     Bairro
                     <div className="font-bold text-gray-400  pl-1">
@@ -214,27 +238,29 @@ export default function CustomerRegister() {
                     </div>{" "}
                   </label>
                   <div className="flex flex-col h-8">
-                  <input
-                    type="text"
-                    required
-                    minLength={6}
-                    className="peer border-b text-sm border-gray-600 outline-none mb-2"
-                    placeholder="Ex. Jardim Rio Azul"
-                    value={neighborhood}
-                    onChange={(event) => setNeighborhood(event.target.value)}
-                  />
-                   <span
+                    <input
+                      type="text"
+                      required
+                      minLength={6}
+                      className="peer border-b text-sm border-gray-600 outline-none"
+                      placeholder="Ex. Jardim Rio Azul"
+                      value={neighborhood}
+                      onChange={(event) => setNeighborhood(event.target.value)}
+                    />
+                    <motion.span
+                    variants={dropdown}
+                    animate={neighborhood !== "" && neighborhood.length < 6 ? "show" : "hidden"}
                       className={`${
                         neighborhood !== ""
                           ? "peer-valid:hidden"
                           : "peer-invalid:visible hidden"
                       } text-[12px] text-red-500 font-bold`}
                     >
-                      - Rua Inválida!
-                    </span>
+                      - Bairro Inválida!
+                    </motion.span>
                   </div>
-                 
 
+                  {/* COMPLEMENTO */}
                   <label className="font-semibold ">Complemento</label>
                   <input
                     type="text"
