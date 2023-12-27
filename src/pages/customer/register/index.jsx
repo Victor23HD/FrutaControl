@@ -47,7 +47,7 @@ export default function CustomerRegister() {
 
   return (
     <div className="relative pt-8 justify-center flex ">
-      <div className="bg-white shadow-lg rounded-xl flex">
+      <div className="bg-white shadow-lg rounded-2xl flex">
         <div className="p-10 flex-col divide-y-2 divide-black ">
           <div className="text-center font-medium text-2xl pb-8 ">
             [ Clientes ]
@@ -68,14 +68,18 @@ export default function CustomerRegister() {
                       type="text"
                       required
                       minLength={5}
-                      className="peer border-b text-sm border-gray-600 outline-none "
+                      className="peer border-b text-sm border-b-gray-600 outline-none"
                       placeholder="Ex. Assaí atacadista"
                       value={company}
                       onChange={(event) => setCompany(event.target.value)}
                     />
                     <motion.span
-                    variants={dropdown}
-                    animate={company !== "" && company.length <= 6 ? "show" : "hidden"}
+                      variants={dropdown}
+                      animate={
+                        company !== "" && company.length <= 6
+                          ? "show"
+                          : "hidden"
+                      }
                       className={`${
                         company !== ""
                           ? "peer-valid:hidden"
@@ -106,8 +110,10 @@ export default function CustomerRegister() {
                       onChange={(event) => setContact(event.target.value)}
                     />
                     <motion.span
-                    variants={dropdown}
-                    animate={contact !== "" && contact.length < 6  ? "show" : "hidden"}
+                      variants={dropdown}
+                      animate={
+                        contact !== "" && contact.length < 6 ? "show" : "hidden"
+                      }
                       className={`${
                         contact !== ""
                           ? "peer-valid:hidden"
@@ -133,8 +139,10 @@ export default function CustomerRegister() {
                       onChange={(event) => setEmail(event.target.value)}
                     />
                     <motion.span
-                    variants={dropdown}
-                    animate={email !== "" && email.length < 13    ? "show" : "hidden"}
+                      variants={dropdown}
+                      animate={
+                        email !== "" && email.length < 13 ? "show" : "hidden"
+                      }
                       className={`${
                         email !== ""
                           ? "peer-valid:hidden"
@@ -161,8 +169,12 @@ export default function CustomerRegister() {
                       onChange={(event) => setTelephone(event.target.value)}
                     />
                     <motion.span
-                    variants={dropdown}
-                    animate={telephone !== "" && telephone.length < 11    ? "show" : "hidden"}
+                      variants={dropdown}
+                      animate={
+                        telephone !== "" && telephone.length < 11
+                          ? "show"
+                          : "hidden"
+                      }
                       className={`${
                         telephone !== ""
                           ? "peer-valid:hidden"
@@ -192,8 +204,12 @@ export default function CustomerRegister() {
                       <option value="atacado">Atacado</option>
                     </select>
                     <motion.span
-                    variants={dropdown}
-                    animate={category !== "" && category.length < 11    ? "show" : "hidden"}
+                      variants={dropdown}
+                      animate={
+                        category !== "" && category.length < 11
+                          ? "show"
+                          : "hidden"
+                      }
                       className={`${
                         category !== ""
                           ? "peer-valid:hidden"
@@ -218,8 +234,10 @@ export default function CustomerRegister() {
                       onChange={(event) => setStreet(event.target.value)}
                     />
                     <motion.span
-                     variants={dropdown}
-                     animate={street !== "" && street.length < 6 ? "show" : "hidden"}
+                      variants={dropdown}
+                      animate={
+                        street !== "" && street.length < 6 ? "show" : "hidden"
+                      }
                       className={`${
                         street !== ""
                           ? "peer-valid:hidden"
@@ -248,8 +266,12 @@ export default function CustomerRegister() {
                       onChange={(event) => setNeighborhood(event.target.value)}
                     />
                     <motion.span
-                    variants={dropdown}
-                    animate={neighborhood !== "" && neighborhood.length < 6 ? "show" : "hidden"}
+                      variants={dropdown}
+                      animate={
+                        neighborhood !== "" && neighborhood.length < 6
+                          ? "show"
+                          : "hidden"
+                      }
                       className={`${
                         neighborhood !== ""
                           ? "peer-valid:hidden"

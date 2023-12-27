@@ -38,7 +38,7 @@ export default function ModelPage({ children }) {
           <Sidebar />
         </div>
         <div className="w-screen h-screen">
-          <div className="flex flex-col items-center h-screen bg-gradient-to-bl from-orange-300 to-green-400">
+          <div className="flex flex-col items-center h-screen bg-gradient-to-tr from-yellow-300 to-cyan-300">
             <Navbar />
             <div className="h-full">{children}</div>
           </div>
