@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import InputMask from "react-input-mask";
+import axios from "axios";
 
 export default function CustomerRegister() {
   const dateNow = new Date();
@@ -11,7 +13,9 @@ export default function CustomerRegister() {
   const [contact, setContact] = useState("");
   const [email, setEmail] = useState("");
   const [telephone, setTelephone] = useState("");
+  const [cnpj, setCnpj] = useState("");
   const [category, setCategory] = useState("varejo");
+  const [cep, setCep] = useState();
   const [street, setStreet] = useState("");
   const [neighborhood, setNeighborhood] = useState("");
   const [complement, setComplement] = useState("");
@@ -30,19 +34,28 @@ export default function CustomerRegister() {
   const sendForm = async (e) => {
     e.preventDefault();
 
-    const Customer = {
-      Company: company,
-      Contact: contact,
-      Email: email,
-      Telephone: telephone,
-      Category: category,
-      Street: street,
-      Neighborhood: neighborhood,
-      Complement: complement,
-      CurrentDate: currentDate,
-    };
-
-    console.log(Customer);
+    try {
+      const response = await axios.post(
+        "https://kq6xsqxnoa.execute-api.us-east-1.amazonaws.com/dev/Customer",
+        {
+          Company: company,
+          Contact: contact,
+          Email: email,
+          Cnpj: cnpj,
+          Telephone: telephone,
+          Category: category,
+          Cep: cep,
+          Street: street,
+          Neighborhood: neighborhood,
+          Complement: complement,
+          CurrentDate: currentDate,
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+    }
+    
   };
 
   return (
@@ -152,17 +165,47 @@ export default function CustomerRegister() {
                       - E-mail Inválido!
                     </motion.span>
                   </div>
+                  {/* CNPJ */}
+                  <label className="flex flex-row font-semibold items-center">
+                    CNPJ
+                    <div className="font-bold text-gray-400  pl-1"> * </div>
+                  </label>
+                  <div className="flex flex-col h-8 ">
+                    <InputMask
+                      mask={"99.999.999/9999-99"}
+                      type="text"
+                      required
+                      minLength={14}
+                      className="peer border-b text-sm border-gray-600 outline-none "
+                      placeholder="Ex. 12.345.678/0001-00"
+                      value={cnpj}
+                      onChange={(event) => setCnpj(event.target.value)}
+                    />
+                    <motion.span
+                      variants={dropdown}
+                      animate={
+                        cnpj !== "" && cnpj.length < 14 ? "show" : "hidden"
+                      }
+                      className={`${
+                        cnpj !== ""
+                          ? "peer-valid:hidden"
+                          : "peer-invalid:visible hidden"
+                      } text-[12px] text-red-500 font-bold`}
+                    >
+                      - CNPJ Inválido!
+                    </motion.span>
+                  </div>
                   {/* TELEFONE */}
                   <label className="flex flex-row font-semibold items-center">
-                    {" "}
-                    Telefone{" "}
+                    Telefone
                     <div className="font-bold text-gray-400  pl-1"> * </div>
                   </label>
                   <div className="flex flex-col h-6">
-                    <input
-                      type="int"
+                    <InputMask
+                      mask="(99) 99999-9999"
+                      type="tel"
                       required
-                      minLength={11}
+                      minLength={15}
                       className="peer border-b text-sm border-gray-600 outline-none "
                       placeholder="Ex. 1198765-4321"
                       value={telephone}
@@ -171,7 +214,7 @@ export default function CustomerRegister() {
                     <motion.span
                       variants={dropdown}
                       animate={
-                        telephone !== "" && telephone.length < 11
+                        telephone !== "" && telephone.length < 15
                           ? "show"
                           : "hidden"
                       }
@@ -217,6 +260,34 @@ export default function CustomerRegister() {
                       } text-[12px] text-red-500 font-bold`}
                     >
                       - Categoria Inválida!
+                    </motion.span>
+                  </div>
+
+                  {/* CEP */}
+                  <label className="flex flex-row font-semibold items-center">
+                    CEP
+                    <div className="font-bold text-gray-400  pl-1"> * </div>
+                  </label>
+                  <div className="flex flex-col h-8">
+                    <InputMask
+                      mask="99999-999"
+                      type="text"
+                      maxLength={20}
+                      className="peer border-b text-sm border-gray-600 outline-none "
+                      placeholder="Ex. 1198765-4321"
+                      value={cep}
+                      onChange={(event) => setCep(event.target.value)}
+                    />
+                    <motion.span
+                      variants={dropdown}
+                      animate={cep !== "" && cep  < 5 ? "show" : "hidden"}
+                      className={`${
+                        cep !== ""
+                          ? "peer-valid:hidden"
+                          : "peer-invalid:visible hidden"
+                      } text-[12px] text-red-500 font-bold`}
+                    >
+                      - CEP Inválido!
                     </motion.span>
                   </div>
                   {/* STREET */}
