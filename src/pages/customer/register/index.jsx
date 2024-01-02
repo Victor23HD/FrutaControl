@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import InputMask from "react-input-mask";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function CustomerRegister() {
   const dateNow = new Date();
@@ -34,6 +35,10 @@ export default function CustomerRegister() {
   const sendForm = async (e) => {
     e.preventDefault();
 
+    const idToken = Cookies.get("Token")
+
+    console.log(idToken);
+
     try {
       const response = await axios.post(
         "https://kq6xsqxnoa.execute-api.us-east-1.amazonaws.com/dev/Customer",
@@ -47,15 +52,20 @@ export default function CustomerRegister() {
           Cep: cep,
           Street: street,
           Neighborhood: neighborhood,
-          Complement: complement,
+          Complemet: complement,
           CurrentDate: currentDate,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": idToken,
+          },
         }
       );
       console.log(response.data);
     } catch (error) {
       console.error("Erro na requisição:", error);
     }
-    
   };
 
   return (
@@ -280,7 +290,7 @@ export default function CustomerRegister() {
                     />
                     <motion.span
                       variants={dropdown}
-                      animate={cep !== "" && cep  < 5 ? "show" : "hidden"}
+                      animate={cep !== "" && cep < 5 ? "show" : "hidden"}
                       className={`${
                         cep !== ""
                           ? "peer-valid:hidden"
