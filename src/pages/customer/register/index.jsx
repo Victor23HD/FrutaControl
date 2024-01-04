@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import InputMask from "react-input-mask";
 import axios from "axios";
 
+
 export default function CustomerRegister() {
   const dateNow = new Date();
   const currentDate = `${dateNow.getDate() <= 9 ? `0${dateNow.getDate()}` : `${dateNow.getDate()}`}/${
@@ -40,6 +41,7 @@ export default function CustomerRegister() {
     await axios
       .post(
         "https://kq6xsqxnoa.execute-api.us-east-1.amazonaws.com/dev/TesteTeste",
+
         {
           Company: company,
           Contact: contact,
@@ -50,9 +52,9 @@ export default function CustomerRegister() {
           Cep: cep,
           Street: street,
           Neighborhood: neighborhood,
-          Complement: complement,
+          Complemet: complement,
           CurrentDate: currentDate,
-        }
+        },
       )
       .then((response) => {
         console.log(response.data);
@@ -61,6 +63,7 @@ export default function CustomerRegister() {
         console.log(error.response.data);
       });
       console.log(idToken);
+
   };
 
   return (
