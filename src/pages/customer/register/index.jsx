@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import Cookies from "js-cookie";
 import InputMask from "react-input-mask";
 import axios from "axios";
 
 export default function CustomerRegister() {
   const dateNow = new Date();
-  const currentDate = `${dateNow.getDate()}/${
-    dateNow.getMonth() + 1
+  const currentDate = `${dateNow.getDate() <= 9 ? `0${dateNow.getDate()}` : `${dateNow.getDate()}`}/${
+    dateNow.getMonth() + 1 <= 9 ? `${dateNow.getMonth() + 1}0`:`${dateNow.getMonth() + 1}`
   }/${dateNow.getFullYear()}`;
 
   const [company, setCompany] = useState("");
@@ -34,9 +35,11 @@ export default function CustomerRegister() {
   const sendForm = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await axios.post(
-        "https://kq6xsqxnoa.execute-api.us-east-1.amazonaws.com/dev/Customer",
+    const idToken = Cookies.get("Token");
+
+    await axios
+      .post(
+        "https://kq6xsqxnoa.execute-api.us-east-1.amazonaws.com/dev/TesteTeste",
         {
           Company: company,
           Contact: contact,
@@ -50,12 +53,14 @@ export default function CustomerRegister() {
           Complement: complement,
           CurrentDate: currentDate,
         }
-      );
-      console.log(response.data);
-    } catch (error) {
-      console.error("Erro na requisição:", error);
-    }
-    
+      )
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
+      console.log(idToken);
   };
 
   return (
@@ -280,7 +285,7 @@ export default function CustomerRegister() {
                     />
                     <motion.span
                       variants={dropdown}
-                      animate={cep !== "" && cep  < 5 ? "show" : "hidden"}
+                      animate={cep !== "" && cep < 5 ? "show" : "hidden"}
                       className={`${
                         cep !== ""
                           ? "peer-valid:hidden"
