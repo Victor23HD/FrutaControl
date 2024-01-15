@@ -40,12 +40,12 @@ import {
   
       const cognitoUser = new CognitoUser(userData);
   
-      cognitoUser.authenticateUser(authenticationDetails, {
+      await cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: (session) => {
           const idToken = session.getIdToken().getJwtToken();
           axios
             .get(
-              "https://kq6xsqxnoa.execute-api.us-east-1.amazonaws.com/dev/FrutaControl",
+              "https://e6rlxept92.execute-api.us-east-1.amazonaws.com/dev/FrutaControl",
               {
                 headers: {
                   "Content-Type": "application/json",

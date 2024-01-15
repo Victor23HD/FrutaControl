@@ -4,11 +4,14 @@ import Cookies from "js-cookie";
 import InputMask from "react-input-mask";
 import axios from "axios";
 
-
 export default function CustomerRegister() {
   const dateNow = new Date();
-  const currentDate = `${dateNow.getDate() <= 9 ? `0${dateNow.getDate()}` : `${dateNow.getDate()}`}/${
-    dateNow.getMonth() + 1 <= 9 ? `${dateNow.getMonth() + 1}0`:`${dateNow.getMonth() + 1}`
+  const currentDate = `${
+    dateNow.getDate() <= 9 ? `0${dateNow.getDate()}` : `${dateNow.getDate()}`
+  }/${
+    dateNow.getMonth() + 1 <= 9
+      ? `${dateNow.getMonth() + 1}0`
+      : `${dateNow.getMonth() + 1}`
   }/${dateNow.getFullYear()}`;
 
   const [company, setCompany] = useState("");
@@ -54,7 +57,11 @@ export default function CustomerRegister() {
           Neighborhood: neighborhood,
           Complemet: complement,
           CurrentDate: currentDate,
-        },
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": idToken,
+          },
+        }
       )
       .then((response) => {
         console.log(response.data);
@@ -62,8 +69,7 @@ export default function CustomerRegister() {
       .catch((error) => {
         console.log(error.response.data);
       });
-      console.log(idToken);
-
+    console.log(idToken);
   };
 
   return (
