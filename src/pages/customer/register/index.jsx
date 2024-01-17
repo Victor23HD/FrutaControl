@@ -43,8 +43,7 @@ export default function CustomerRegister() {
 
     await axios
       .post(
-        "https://kq6xsqxnoa.execute-api.us-east-1.amazonaws.com/dev/TesteTeste",
-
+        "https://e6rlxept92.execute-api.us-east-1.amazonaws.com/dev/Customer",
         {
           Company: company,
           Contact: contact,
@@ -57,6 +56,8 @@ export default function CustomerRegister() {
           Neighborhood: neighborhood,
           Complemet: complement,
           CurrentDate: currentDate,
+        },
+        {
           headers: {
             "Content-Type": "application/json",
             "auth-token": idToken,
