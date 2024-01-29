@@ -25,6 +25,9 @@ export default function CustomerRegister() {
   const [neighborhood, setNeighborhood] = useState("");
   const [complement, setComplement] = useState("");
 
+  const [res, setRes] = useState("");
+  const [colorRes, setColorRes] = useState("green");
+
   const dropdown = {
     hidden: { opacity: 0, height: 0 },
     show: {
@@ -38,8 +41,6 @@ export default function CustomerRegister() {
 
   const sendForm = async (e) => {
     e.preventDefault();
-
-    const idToken = Cookies.get("Token");
 
     await axios
       .post(
@@ -60,17 +61,18 @@ export default function CustomerRegister() {
         {
           headers: {
             "Content-Type": "application/json",
-            "auth-token": idToken,
+            "auth-token": Cookies.get("Token"),
           },
         }
       )
       .then((response) => {
-        console.log(response.data);
+        setColorRes("green");
+        setRes(response.data);
       })
       .catch((error) => {
-        console.log(error.response.data);
+        setColorRes("red");
+        setRes(error.response.data);
       });
-    console.log(idToken);
   };
 
   return (
@@ -80,6 +82,7 @@ export default function CustomerRegister() {
           <div className="text-center font-medium text-2xl pb-8 ">
             [ Clientes ]
           </div>
+
           <div className="flex justify-center ">
             <form>
               <div className="grid grid-cols-2 divide-x-2 divide-gray-600  py-6">
@@ -379,6 +382,7 @@ export default function CustomerRegister() {
                   />
                 </div>
               </div>
+              <div className={`text-center font-medium ${colorRes == "green" ? "text-green-400" : "text-red-500"}`}>{res}</div>
               <button
                 className="w-full bg-blue-400 rounded-lg font-semibold mt-3 py-2"
                 onClick={sendForm}
